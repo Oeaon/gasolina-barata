@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gasolina Barata</string>
+    <string name="settings">Ajustes</string>
+    <string name="back">Volver</string>
+    <string name="retry">Reintentar</string>
+
+    <string name="fuel_gasolina_95">Gasolina 95</string>
+    <string name="fuel_gasolina_98">Gasolina 98</string>
+    <string name="fuel_diesel">Diésel</string>
+    <string name="fuel_diesel_premium">Diésel Premium</string>
+    <string name="fuel_glp">GLP</string>
+    <string name="radius_km">%1$d km</string>
+    <string name="sort_price">Precio</string>
+    <string name="sort_distance">Distancia</string>
+
+    <string name="location_permission">Para buscar las gasolineras más baratas cerca de ti necesitamos tu ubicación. Solo se usa en el móvil y no se envía a ningún sitio.</string>
+    <string name="allow_location">Permitir ubicación</string>
+    <string name="location_disabled">La ubicación del móvil está desactivada.</string>
+    <string name="open_settings">Activar ubicación</string>
+    <string name="location_unavailable">No hemos podido saber dónde estás. Prueba otra vez en un sitio con mejor señal.</string>
+    <string name="locating">Buscando tu ubicación…</string>
+    <string name="loading_stations">Descargando precios oficiales…</string>
+    <string name="error_network">No hay conexión. Comprueba tu internet e inténtalo de nuevo.</string>
+    <string name="error_server">No se han podido cargar los precios. Inténtalo dentro de un rato.</string>
+    <string name="no_stations">No hay gasolineras con este carburante a menos de %1$d km.</string>
+
+    <string name="summary_title">%1$d gasolineras a menos de %2$d km</string>
+    <string name="summary_average">Precio medio: %1$s</string>
+    <string name="summary_cheapest">La más barata: %1$s a %2$s</string>
+    <string name="summary_saving">Llenando %2$d L ahorras %1$s frente a la media</string>
+    <string name="station_saving">Ahorras %1$s en %2$d L</string>
+    <string name="unknown_brand">Gasolinera</string>
+    <string name="directions">Cómo llegar</string>
+
+    <string name="offline_data">Sin conexión: precios guardados de la última consulta.</string>
+    <string name="updated_at">Precios del %1$s</string>
+    <string name="data_source">Precios oficiales con impuestos. Datos: Ministerio para la Transición Ecológica y el Reto Demográfico.</string>
+
+    <string name="tank_title">Depósito</string>
+    <string name="tank_liters">%1$d litros</string>
+    <string name="tank_detail">Se usa para calcular cuánto ahorras al llenar.</string>
+    <string name="privacy_options">Opciones de privacidad de anuncios</string>
+    <string name="about_title">Acerca de</string>
+    <string name="about_text">Precios de las gasolineras de España publicados por el Ministerio para la Transición Ecológica y el Reto Demográfico, que se actualizan cada 30 minutos. El precio final lo marca siempre el surtidor.</string>
+    <string name="version">Versión %1$s</string>
+</resources>
