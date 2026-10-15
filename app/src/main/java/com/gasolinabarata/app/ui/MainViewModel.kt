@@ -96,6 +96,10 @@ class MainViewModel(
         viewModelScope.launch { settingsRepository.setSort(sort) }
     }
 
+    fun setConsumptionTenths(tenths: Int) {
+        viewModelScope.launch { settingsRepository.setConsumptionTenths(tenths) }
+    }
+
     fun setTankLiters(liters: Int) {
         viewModelScope.launch { settingsRepository.setTankLiters(liters) }
     }

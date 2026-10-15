@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
@@ -16,35 +17,61 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.gasolinabarata.app.R
+import com.gasolinabarata.app.monetization.Monetization
+import com.gasolinabarata.app.monetization.MonetizationState
+import com.gasolinabarata.app.monetization.PremiumScreen
 import com.gasolinabarata.core.Station
+
+private enum class Screen { STATIONS, SETTINGS, PREMIUM }
 
 @Composable
 fun GasolinaBarataRoot(
     state: MainUiState,
     viewModel: MainViewModel,
-    adsReady: Boolean,
-    isPrivacyOptionsRequired: () -> Boolean,
-    onPrivacyOptions: () -> Unit,
+    monetization: Monetization,
+    monetizationState: MonetizationState,
 ) {
     val context = LocalContext.current
-    var showSettings by rememberSaveable { mutableStateOf(false) }
+    val activity = LocalActivity.current
+    var screen by rememberSaveable { mutableStateOf(Screen.STATIONS) }
+    // Volver a la lista es una pausa natural para un intersticial.
+    val backToStations: () -> Unit = {
+        screen = Screen.STATIONS
+        activity?.let { monetization.maybeShowInterstitial(it) }
+    }
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions(),
     ) { results -> viewModel.onPermissionResult(results.values.any { it }) }
 
-    if (showSettings) {
-        BackHandler { showSettings = false }
-        SettingsScreen(
-            settings = state.settings,
-            showPrivacyOptions = remember { isPrivacyOptionsRequired() },
-            onBack = { showSettings = false },
-            onTankLitersChange = viewModel::setTankLiters,
-            onPrivacyOptions = onPrivacyOptions,
-        )
-    } else {
-        StationsScreen(
+    when (screen) {
+        Screen.SETTINGS -> {
+            BackHandler(onBack = backToStations)
+            SettingsScreen(
+                settings = state.settings,
+                showPrivacyOptions = remember { activity?.let(monetization::isPrivacyOptionsRequired) ?: false },
+                isPremium = monetizationState.isPremium,
+                onBack = backToStations,
+                onTankLitersChange = viewModel::setTankLiters,
+                onConsumptionChange = viewModel::setConsumptionTenths,
+                onPrivacyOptions = { activity?.let(monetization::showPrivacyOptions) },
+                onOpenPremium = { screen = Screen.PREMIUM },
+            )
+        }
+        Screen.PREMIUM -> {
+            BackHandler { screen = Screen.STATIONS }
+            PremiumScreen(
+                state = monetizationState,
+                monetization = monetization,
+                features = listOf(stringResource(R.string.premium_feature_trip)),
+                onBack = { screen = Screen.STATIONS },
+            )
+        }
+        Screen.STATIONS -> StationsScreen(
             state = state,
-            adsReady = adsReady,
+            monetization = monetization,
+            monetizationState = monetizationState,
             onFuelChange = viewModel::setFuel,
             onRadiusChange = viewModel::setRadius,
             onSortChange = viewModel::setSort,
@@ -56,7 +83,8 @@ fun GasolinaBarataRoot(
             },
             onOpenLocationSettings = { context.startActivitySafely(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) },
             onNavigate = { station -> context.openDirections(station) },
-            onOpenSettings = { showSettings = true },
+            onOpenSettings = { screen = Screen.SETTINGS },
+            onOpenPremium = { screen = Screen.PREMIUM },
         )
     }
 }

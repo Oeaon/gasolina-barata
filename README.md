@@ -8,7 +8,8 @@ App Android (Jetpack Compose) que muestra las gasolineras más baratas cerca de 
 - Botón "Cómo llegar" que abre la app de mapas.
 - La ubicación se usa solo en el móvil: se descarga la lista completa y se filtra en el dispositivo.
 - Funciona sin conexión con la última lista descargada.
-- Banner de AdMob con consentimiento RGPD (UMP).
+- Calculadora del coste de un viaje repostando en la más barata frente al precio medio (Premium o 24 h con un anuncio).
+- Anuncios de AdMob y versión Premium sin anuncios.
 
 ## Datos
 
@@ -20,6 +21,28 @@ https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburan
 
 Devuelve unas 12.000 gasolineras con todos los valores como texto y decimales con coma (`"1,459"`). Se descartan las de venta restringida (`"Tipo Venta": "R"`). La lista se guarda en disco y no se vuelve a descargar hasta pasados 30 minutos.
 
+## Anuncios y Premium
+
+| Formato | Dónde | Límite |
+|---|---|---|
+| Banner adaptativo | Pantallas de consulta | — |
+| Intersticial | Solo en pausas naturales (al volver de Ajustes a la lista) | Uno cada 3 min como mucho |
+| App Open | Al volver a la app desde segundo plano, nunca en el primer arranque | Uno cada 5 min como mucho |
+| Recompensado | Cuando el usuario lo pide para desbloquear la calculadora del coste de un viaje durante 24 h | — |
+
+Premium (Google Play Billing) quita todos los anuncios y desbloquea la calculadora del coste de un viaje para siempre:
+
+- `premium_monthly`: suscripción mensual.
+- `premium_lifetime`: producto de compra única.
+
+Créalos en Play Console con esos IDs. Al arrancar se consulta la tienda, así que si la suscripción caduca vuelven los anuncios. Para una app con muchos ingresos conviene añadir verificación de compras en servidor.
+
+Los IDs de AdMob van en `admob.properties` (no se sube a git; plantilla en `admob.properties.example`). Sin ese archivo se usan las unidades de prueba de Google. El consentimiento RGPD se pide con UMP antes de cargar ningún anuncio.
+
+## Idiomas
+
+Castellano (por defecto), catalán, gallego e inglés.
+
 ## Estructura
 
 ```
@@ -28,7 +51,7 @@ app/    Android: Compose, ViewModel, DataStore, OkHttp, AdMob
   data/       API, caché en disco, ajustes
   location/   ubicación con el LocationManager del sistema (sin Google Play Services)
   ui/         pantallas y componentes
-  ads/        consentimiento y banner
+  monetization/  consentimiento, anuncios y compras de Premium
 ```
 
 ## Compilar
@@ -52,13 +75,9 @@ En el emulador, fija una ubicación en España desde *Extended controls → Loca
    keyAlias=upload
    keyPassword=...
    ```
-2. Pon los IDs reales de AdMob en `~/.gradle/gradle.properties`:
-   ```
-   ADMOB_APP_ID=ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX
-   ADMOB_BANNER_ID=ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
-   ```
-   Sin ellos, el build de release usa las unidades de prueba de Google.
-3. Publica `docs/privacy.html` (por ejemplo con GitHub Pages) y enlázala en la ficha de Play. En la ficha, declara que la ubicación se usa solo para la funcionalidad de la app y no se comparte.
+2. Copia `admob.properties.example` como `admob.properties` y pon los IDs reales de AdMob de esta app.
+3. Crea en Play Console los productos `premium_monthly` (suscripción) y `premium_lifetime` (compra única).
+4. Publica `docs/privacy.html` (por ejemplo con GitHub Pages) y enlázala en la ficha de Play. En la ficha, declara que la ubicación se usa solo para la funcionalidad de la app y no se comparte.
 
 ## Licencia
 

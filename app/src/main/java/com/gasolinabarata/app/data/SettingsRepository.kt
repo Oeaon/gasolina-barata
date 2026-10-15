@@ -23,7 +23,11 @@ data class AppSettings(
     val sort: SortOrder = SortOrder.PRICE,
     /** Litros de un depósito, para calcular el ahorro. */
     val tankLiters: Int = 50,
-)
+    /** Consumo del coche en l/100 km, para la calculadora de viajes. */
+    val consumptionTenths: Int = 65,
+) {
+    val litersPer100Km: Double get() = consumptionTenths / 10.0
+}
 
 class SettingsRepository(private val store: DataStore<Preferences>) {
     val settings: Flow<AppSettings> = store.data
@@ -34,6 +38,7 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
                 radiusKm = prefs[RADIUS]?.takeIf { it in RADIUS_OPTIONS } ?: 10,
                 sort = SortOrder.entries.firstOrNull { it.name == prefs[SORT] } ?: SortOrder.PRICE,
                 tankLiters = (prefs[TANK] ?: 50).coerceIn(MIN_TANK, MAX_TANK),
+                consumptionTenths = (prefs[CONSUMPTION] ?: 65).coerceIn(MIN_CONSUMPTION, MAX_CONSUMPTION),
             )
         }
 
@@ -53,14 +58,21 @@ class SettingsRepository(private val store: DataStore<Preferences>) {
         store.edit { it[TANK] = liters.coerceIn(MIN_TANK, MAX_TANK) }
     }
 
+    suspend fun setConsumptionTenths(tenths: Int) {
+        store.edit { it[CONSUMPTION] = tenths.coerceIn(MIN_CONSUMPTION, MAX_CONSUMPTION) }
+    }
+
     companion object {
         val RADIUS_OPTIONS = listOf(5, 10, 25)
         const val MIN_TANK = 20
         const val MAX_TANK = 100
+        const val MIN_CONSUMPTION = 30
+        const val MAX_CONSUMPTION = 150
 
         private val FUEL = stringPreferencesKey("fuel")
         private val RADIUS = intPreferencesKey("radius_km")
         private val SORT = stringPreferencesKey("sort")
         private val TANK = intPreferencesKey("tank_liters")
+        private val CONSUMPTION = intPreferencesKey("consumption_tenths")
     }
 }

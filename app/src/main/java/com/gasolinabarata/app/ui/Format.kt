@@ -8,3 +8,6 @@ fun formatEuros(eur: Double): String = String.format(Locale.getDefault(), "%.2f 
 
 fun formatDistance(km: Double): String =
     if (km < 1) String.format(Locale.getDefault(), "%.0f m", km * 1000) else String.format(Locale.getDefault(), "%.1f km", km)
+
+/** Consumo guardado en décimas: 65 → "6,5". */
+fun formatConsumption(tenths: Int): String = String.format(Locale.getDefault(), "%.1f", tenths / 10.0)

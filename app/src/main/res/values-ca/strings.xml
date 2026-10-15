@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gasolina Barata</string>
+    <string name="settings">Configuració</string>
+    <string name="back">Tornar</string>
+    <string name="retry">Torna-ho a provar</string>
+
+    <string name="fuel_gasolina_95">Gasolina 95</string>
+    <string name="fuel_gasolina_98">Gasolina 98</string>
+    <string name="fuel_diesel">Dièsel</string>
+    <string name="fuel_diesel_premium">Dièsel Premium</string>
+    <string name="fuel_glp">GLP</string>
+    <string name="radius_km">%1$d km</string>
+    <string name="sort_price">Preu</string>
+    <string name="sort_distance">Distància</string>
+
+    <string name="location_permission">Per buscar les benzineres més barates a prop teu necessitem la teva ubicació. Només s\'utilitza al mòbil i no s\'envia enlloc.</string>
+    <string name="allow_location">Permet la ubicació</string>
+    <string name="location_disabled">La ubicació del mòbil està desactivada.</string>
+    <string name="open_settings">Activa la ubicació</string>
+    <string name="location_unavailable">No hem pogut saber on ets. Torna-ho a provar en un lloc amb més cobertura.</string>
+    <string name="locating">Buscant la teva ubicació…</string>
+    <string name="loading_stations">Baixant els preus oficials…</string>
+    <string name="error_network">No hi ha connexió. Comprova la connexió a internet i torna-ho a provar.</string>
+    <string name="error_server">No s\'han pogut carregar els preus. Torna-ho a provar d\'aquí a una estona.</string>
+    <string name="no_stations">No hi ha benzineres amb aquest carburant a menys de %1$d km.</string>
+
+    <string name="summary_title">%1$d benzineres a menys de %2$d km</string>
+    <string name="summary_average">Preu mitjà: %1$s</string>
+    <string name="summary_cheapest">La més barata: %1$s a %2$s</string>
+    <string name="summary_saving">Omplint %2$d L t\'estalvies %1$s respecte a la mitjana</string>
+    <string name="station_saving">T\'estalvies %1$s en %2$d L</string>
+    <string name="unknown_brand">Benzinera</string>
+    <string name="directions">Com arribar-hi</string>
+
+    <string name="offline_data">Sense connexió: preus desats de l\'última consulta.</string>
+    <string name="updated_at">Preus del %1$s</string>
+    <string name="data_source">Preus oficials amb impostos. Dades: Ministeri per a la Transició Ecològica i el Repte Demogràfic.</string>
+
+    <string name="tank_title">Dipòsit</string>
+    <string name="tank_liters">%1$d litres</string>
+    <string name="tank_detail">S\'utilitza per calcular quant t\'estalvies en omplir-lo.</string>
+    <string name="privacy_options">Opcions de privadesa dels anuncis</string>
+    <string name="about_title">Quant a</string>
+    <string name="about_text">Preus de les benzineres d\'Espanya publicats pel Ministeri per a la Transició Ecològica i el Repte Demogràfic, que s\'actualitzen cada 30 minuts. El preu final sempre és el del sortidor.</string>
+    <string name="version">Versió %1$s</string>
+
+    <string name="trip_title">Quant em costa el viatge?</string>
+    <string name="trip_locked">Calcula el combustible i el que et costa un viatge si poses benzina a la benzinera més barata.</string>
+    <string name="trip_distance">Distància del viatge</string>
+    <string name="trip_consumption">Amb un consum de %1$s l/100 km (canvia\'l a Configuració)</string>
+    <string name="trip_liters">Necessites %1$s litres</string>
+    <string name="trip_cost_cheapest">A la més barata: %1$s</string>
+    <string name="trip_cost_average">A preu mitjà: %1$s</string>
+    <string name="trip_saving">T\'estalvies %1$s en el viatge</string>
+    <string name="consumption_title">Consum del cotxe</string>
+    <string name="consumption_value">%1$s l/100 km</string>
+    <string name="consumption_detail">S\'utilitza a la calculadora de viatges.</string>
+    <string name="premium_feature_trip">Calculadora del cost d\'un viatge</string>
+    <string name="premium_settings_text">Treu els anuncis i desbloqueja la calculadora de viatges.</string>
+    <string name="remove_ads">Treure els anuncis</string>
+</resources>

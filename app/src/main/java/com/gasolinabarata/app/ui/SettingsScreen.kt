@@ -7,6 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -38,7 +39,10 @@ fun SettingsScreen(
     showPrivacyOptions: Boolean,
     onBack: () -> Unit,
     onTankLitersChange: (Int) -> Unit,
+    onConsumptionChange: (Int) -> Unit,
     onPrivacyOptions: () -> Unit,
+    isPremium: Boolean,
+    onOpenPremium: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -74,6 +78,34 @@ fun SettingsScreen(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
+
+            HorizontalDivider(Modifier.padding(vertical = 16.dp))
+            SectionTitle(stringResource(R.string.consumption_title))
+            var tenths by remember(settings.consumptionTenths) {
+                mutableFloatStateOf(settings.consumptionTenths.toFloat())
+            }
+            Text(stringResource(R.string.consumption_value, formatConsumption(tenths.roundToInt())))
+            Slider(
+                value = tenths,
+                onValueChange = { tenths = it },
+                onValueChangeFinished = { onConsumptionChange(tenths.roundToInt()) },
+                valueRange = SettingsRepository.MIN_CONSUMPTION.toFloat()..SettingsRepository.MAX_CONSUMPTION.toFloat(),
+                steps = (SettingsRepository.MAX_CONSUMPTION - SettingsRepository.MIN_CONSUMPTION) / 5 - 1,
+            )
+            Text(
+                stringResource(R.string.consumption_detail),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+
+            if (!isPremium) {
+                HorizontalDivider(Modifier.padding(vertical = 16.dp))
+                SectionTitle(stringResource(R.string.premium_title))
+                Text(stringResource(R.string.premium_settings_text), style = MaterialTheme.typography.bodyMedium)
+                Button(onClick = onOpenPremium, modifier = Modifier.padding(top = 8.dp)) {
+                    Text(stringResource(R.string.remove_ads))
+                }
+            }
 
             if (showPrivacyOptions) {
                 HorizontalDivider(Modifier.padding(vertical = 16.dp))

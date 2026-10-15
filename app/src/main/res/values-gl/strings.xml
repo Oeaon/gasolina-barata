@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gasolina Barata</string>
+    <string name="settings">Axustes</string>
+    <string name="back">Volver</string>
+    <string name="retry">Tentar de novo</string>
+
+    <string name="fuel_gasolina_95">Gasolina 95</string>
+    <string name="fuel_gasolina_98">Gasolina 98</string>
+    <string name="fuel_diesel">Diésel</string>
+    <string name="fuel_diesel_premium">Diésel Premium</string>
+    <string name="fuel_glp">GLP</string>
+    <string name="radius_km">%1$d km</string>
+    <string name="sort_price">Prezo</string>
+    <string name="sort_distance">Distancia</string>
+
+    <string name="location_permission">Para buscar as gasolineiras máis baratas preto de ti necesitamos a túa localización. Só se usa no móbil e non se envía a ningures.</string>
+    <string name="allow_location">Permitir localización</string>
+    <string name="location_disabled">A localización do móbil está desactivada.</string>
+    <string name="open_settings">Activar localización</string>
+    <string name="location_unavailable">Non puidemos saber onde estás. Proba outra vez nun sitio con mellor cobertura.</string>
+    <string name="locating">Buscando a túa localización…</string>
+    <string name="loading_stations">Descargando os prezos oficiais…</string>
+    <string name="error_network">Non hai conexión. Comproba a túa conexión e téntao de novo.</string>
+    <string name="error_server">Non se puideron cargar os prezos. Téntao dentro dun anaco.</string>
+    <string name="no_stations">Non hai gasolineiras con este carburante a menos de %1$d km.</string>
+
+    <string name="summary_title">%1$d gasolineiras a menos de %2$d km</string>
+    <string name="summary_average">Prezo medio: %1$s</string>
+    <string name="summary_cheapest">A máis barata: %1$s a %2$s</string>
+    <string name="summary_saving">Enchendo %2$d L aforras %1$s fronte á media</string>
+    <string name="station_saving">Aforras %1$s en %2$d L</string>
+    <string name="unknown_brand">Gasolineira</string>
+    <string name="directions">Como chegar</string>
+
+    <string name="offline_data">Sen conexión: prezos gardados da última consulta.</string>
+    <string name="updated_at">Prezos do %1$s</string>
+    <string name="data_source">Prezos oficiais con impostos. Datos: Ministerio para a Transición Ecolóxica e o Reto Demográfico.</string>
+
+    <string name="tank_title">Depósito</string>
+    <string name="tank_liters">%1$d litros</string>
+    <string name="tank_detail">Úsase para calcular canto aforras ao encher.</string>
+    <string name="privacy_options">Opcións de privacidade dos anuncios</string>
+    <string name="about_title">Acerca de</string>
+    <string name="about_text">Prezos das gasolineiras de España publicados polo Ministerio para a Transición Ecolóxica e o Reto Demográfico, que se actualizan cada 30 minutos. O prezo final sempre é o do surtidor.</string>
+    <string name="version">Versión %1$s</string>
+
+    <string name="trip_title">Canto me custa a viaxe?</string>
+    <string name="trip_locked">Calcula o combustible e o que che custa unha viaxe repostando na gasolineira máis barata.</string>
+    <string name="trip_distance">Distancia da viaxe</string>
+    <string name="trip_consumption">Cun consumo de %1$s l/100 km (cámbiao en Axustes)</string>
+    <string name="trip_liters">Necesitas %1$s litros</string>
+    <string name="trip_cost_cheapest">Na máis barata: %1$s</string>
+    <string name="trip_cost_average">A prezo medio: %1$s</string>
+    <string name="trip_saving">Aforras %1$s na viaxe</string>
+    <string name="consumption_title">Consumo do coche</string>
+    <string name="consumption_value">%1$s l/100 km</string>
+    <string name="consumption_detail">Úsase na calculadora de viaxes.</string>
+    <string name="premium_feature_trip">Calculadora do custo dunha viaxe</string>
+    <string name="premium_settings_text">Quita os anuncios e desbloquea a calculadora de viaxes.</string>
+    <string name="remove_ads">Quitar anuncios</string>
+</resources>

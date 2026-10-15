@@ -1,4 +1,4 @@
-package com.gasolinabarata.app.ads
+package com.gasolinabarata.app.monetization
 
 import android.app.Activity
 import com.google.android.gms.ads.MobileAds

@@ -44,4 +44,18 @@
     <string name="about_title">Acerca de</string>
     <string name="about_text">Precios de las gasolineras de España publicados por el Ministerio para la Transición Ecológica y el Reto Demográfico, que se actualizan cada 30 minutos. El precio final lo marca siempre el surtidor.</string>
     <string name="version">Versión %1$s</string>
+    <string name="trip_title">¿Cuánto me cuesta el viaje?</string>
+    <string name="trip_locked">Calcula el combustible y lo que te cuesta un viaje repostando en la gasolinera más barata.</string>
+    <string name="trip_distance">Distancia del viaje</string>
+    <string name="trip_consumption">Con un consumo de %1$s l/100 km (cámbialo en Ajustes)</string>
+    <string name="trip_liters">Necesitas %1$s litros</string>
+    <string name="trip_cost_cheapest">En la más barata: %1$s</string>
+    <string name="trip_cost_average">A precio medio: %1$s</string>
+    <string name="trip_saving">Te ahorras %1$s en el viaje</string>
+    <string name="consumption_title">Consumo del coche</string>
+    <string name="consumption_value">%1$s l/100 km</string>
+    <string name="consumption_detail">Se usa en la calculadora de viajes.</string>
+    <string name="premium_feature_trip">Calculadora del coste de un viaje</string>
+    <string name="premium_settings_text">Quita los anuncios y desbloquea la calculadora de viajes.</string>
+    <string name="remove_ads">Quitar anuncios</string>
 </resources>

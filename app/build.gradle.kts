@@ -7,16 +7,22 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-// Unidades de prueba de Google: se usan en debug y en release mientras no haya IDs reales.
-val testAdmobAppId = "ca-app-pub-3940256099942544~3347511713"
-val testBannerId = "ca-app-pub-3940256099942544/9214589741"
-val admobAppId = providers.gradleProperty("ADMOB_APP_ID").getOrElse(testAdmobAppId)
-val admobBannerId = providers.gradleProperty("ADMOB_BANNER_ID").getOrElse(testBannerId)
-
-val keystoreProperties = Properties().apply {
-    val file = rootProject.file("keystore.properties")
+fun loadProperties(name: String) = Properties().apply {
+    val file = rootProject.file(name)
     if (file.exists()) file.inputStream().use { load(it) }
 }
+
+// IDs reales de AdMob en admob.properties (no se sube a git). Sin ellos se usan los de prueba de Google.
+val admob = loadProperties("admob.properties")
+val testAdIds = mapOf(
+    "APP_ID" to "ca-app-pub-3940256099942544~3347511713",
+    "BANNER" to "ca-app-pub-3940256099942544/9214589741",
+    "INTERSTITIAL" to "ca-app-pub-3940256099942544/1033173712",
+    "APP_OPEN" to "ca-app-pub-3940256099942544/9257395921",
+    "REWARDED" to "ca-app-pub-3940256099942544/5224354917",
+)
+val adUnits = listOf("BANNER", "INTERSTITIAL", "APP_OPEN", "REWARDED")
+val keystoreProperties = loadProperties("keystore.properties")
 
 android {
     namespace = "com.gasolinabarata.app"
@@ -43,16 +49,18 @@ android {
 
     buildTypes {
         debug {
-            manifestPlaceholders["admobAppId"] = testAdmobAppId
-            buildConfigField("String", "BANNER_AD_UNIT", "\"$testBannerId\"")
+            manifestPlaceholders["admobAppId"] = testAdIds.getValue("APP_ID")
+            adUnits.forEach { buildConfigField("String", "AD_$it", "\"${testAdIds.getValue(it)}\"") }
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfigs.findByName("release")?.let { signingConfig = it }
-            manifestPlaceholders["admobAppId"] = admobAppId
-            buildConfigField("String", "BANNER_AD_UNIT", "\"$admobBannerId\"")
+            manifestPlaceholders["admobAppId"] = admob.getProperty("APP_ID", testAdIds.getValue("APP_ID"))
+            adUnits.forEach {
+                buildConfigField("String", "AD_$it", "\"${admob.getProperty(it, testAdIds.getValue(it))}\"")
+            }
         }
     }
 
@@ -80,6 +88,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.process)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
@@ -87,9 +96,10 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.okhttp)
     implementation(libs.play.services.ads)
     implementation(libs.ump)
+    implementation(libs.billing)
+    implementation(libs.okhttp)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

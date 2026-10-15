@@ -2,16 +2,12 @@ package com.gasolinabarata.app.ui
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
@@ -39,7 +35,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.gasolinabarata.app.R
-import com.gasolinabarata.app.ads.AdBanner
+import com.gasolinabarata.app.monetization.AdBanner
+import com.gasolinabarata.app.monetization.LockedFeature
+import com.gasolinabarata.app.monetization.Monetization
+import com.gasolinabarata.app.monetization.MonetizationState
+import com.gasolinabarata.app.monetization.PremiumAction
 import com.gasolinabarata.app.data.AppSettings
 import com.gasolinabarata.app.data.SettingsRepository
 import com.gasolinabarata.core.Fuel
@@ -52,7 +52,8 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun StationsScreen(
     state: MainUiState,
-    adsReady: Boolean,
+    monetization: Monetization,
+    monetizationState: MonetizationState,
     onFuelChange: (Fuel) -> Unit,
     onRadiusChange: (Int) -> Unit,
     onSortChange: (SortOrder) -> Unit,
@@ -61,23 +62,21 @@ fun StationsScreen(
     onOpenLocationSettings: () -> Unit,
     onNavigate: (Station) -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenPremium: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name)) },
                 actions = {
+                    PremiumAction(monetizationState, onOpenPremium)
                     IconButton(onClick = onOpenSettings) {
                         Icon(Icons.Filled.Settings, contentDescription = stringResource(R.string.settings))
                     }
                 },
             )
         },
-        bottomBar = {
-            if (adsReady) {
-                Box(Modifier.windowInsetsPadding(WindowInsets.navigationBars)) { AdBanner() }
-            }
-        },
+        bottomBar = { AdBanner(monetizationState) },
     ) { padding ->
         PullToRefreshBox(
             isRefreshing = state.isRefreshing,
@@ -90,15 +89,30 @@ fun StationsScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 item { Filters(state.settings, onFuelChange, onRadiusChange, onSortChange) }
-                content(state, onRefresh, onRequestPermission, onOpenLocationSettings, onNavigate)
+                content(
+                    state,
+                    TripUnlock(monetization, monetizationState, onOpenPremium),
+                    onRefresh,
+                    onRequestPermission,
+                    onOpenLocationSettings,
+                    onNavigate,
+                )
                 item { Footer(state.stations) }
             }
         }
     }
 }
 
+/** Lo necesario para mostrar la calculadora de viajes bloqueada o desbloqueada. */
+private class TripUnlock(
+    val monetization: Monetization,
+    val state: MonetizationState,
+    val onOpenPremium: () -> Unit,
+)
+
 private fun LazyListScope.content(
     state: MainUiState,
+    tripUnlock: TripUnlock,
     onRefresh: () -> Unit,
     onRequestPermission: () -> Unit,
     onOpenLocationSettings: () -> Unit,
@@ -123,17 +137,33 @@ private fun LazyListScope.content(
             StationsState.ServerError -> item {
                 ActionCard(stringResource(R.string.error_server), stringResource(R.string.retry), onRefresh)
             }
-            is StationsState.Ready -> results(state.nearby, state.settings, onNavigate)
+            is StationsState.Ready -> results(state.nearby, state.settings, tripUnlock, onNavigate)
         }
     }
 }
 
-private fun LazyListScope.results(nearby: NearbyResult?, settings: AppSettings, onNavigate: (Station) -> Unit) {
+private fun LazyListScope.results(
+    nearby: NearbyResult?,
+    settings: AppSettings,
+    tripUnlock: TripUnlock,
+    onNavigate: (Station) -> Unit,
+) {
     if (nearby == null || nearby.stations.isEmpty()) {
         item { Text(stringResource(R.string.no_stations, settings.radiusKm), style = MaterialTheme.typography.bodyLarge) }
         return
     }
     item { SummaryCard(nearby, settings) }
+    item {
+        LockedFeature(
+            state = tripUnlock.state,
+            monetization = tripUnlock.monetization,
+            title = stringResource(R.string.trip_title),
+            description = stringResource(R.string.trip_locked),
+            onGoPremium = tripUnlock.onOpenPremium,
+        ) {
+            TripCard(nearby, settings.litersPer100Km)
+        }
+    }
     items(nearby.stations, key = { it.station.id }) { station ->
         StationCard(
             nearby = station,
