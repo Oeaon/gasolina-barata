@@ -1,6 +1,10 @@
 # Gasolina Barata
 
-App Android (Jetpack Compose) que muestra las gasolineras más baratas cerca de ti en España.
+![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white) ![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=jetpackcompose&logoColor=white) ![Android](https://img.shields.io/badge/Android-8.0%2B-3DDC84?logo=android&logoColor=white)
+
+Gasolineras más baratas cerca de ti en España con los precios oficiales del Ministerio, ahorro por depósito y coste de un viaje.
+
+App Android nativa desarrollada en **Kotlin** con **Jetpack Compose** (Material 3).
 
 - Gasolina 95, Gasolina 98, Diésel, Diésel Premium y GLP.
 - Radio de 5, 10 o 25 km, ordenado por precio o por distancia.
