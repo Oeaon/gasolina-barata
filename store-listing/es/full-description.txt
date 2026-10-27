@@ -22,4 +22,8 @@ Con Premium quitas todos los anuncios y tienes la calculadora de viajes siempre 
 DATOS
 Precios oficiales con impuestos, procedentes del servicio público del Ministerio para la Transición Ecológica y el Reto Demográfico. El precio final es siempre el que marca el surtidor.
 
-Gasolina Barata es una app independiente y no está vinculada al Ministerio ni a ninguna marca de gasolineras.
+Fuente oficial de los datos:
+• Geoportal de Gasolineras del Ministerio: https://geoportalgasolineras.es/geoportal-instalaciones/Inicio
+• Servicio de precios de carburantes: https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/help
+
+Gasolina Barata es una app independiente y no está vinculada al Ministerio, a ningún organismo público ni a ninguna marca de gasolineras.

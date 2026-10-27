@@ -43,6 +43,10 @@
     <string name="privacy_options">Opcións de privacidade dos anuncios</string>
     <string name="about_title">Acerca de</string>
     <string name="about_text">Prezos das gasolineiras de España publicados polo Ministerio para a Transición Ecolóxica e o Reto Demográfico, que se actualizan cada 30 minutos. O prezo final sempre é o do surtidor.</string>
+    <string name="source_title">Fonte dos datos</string>
+    <string name="source_geoportal">Xeoportal de Gasolineiras (Ministerio)</string>
+    <string name="source_service">Servizo oficial de prezos de carburantes (minetur.gob.es)</string>
+    <string name="about_disclaimer">Gasolina Barata é unha app independente e non está vinculada ao Ministerio nin a ningún organismo público.</string>
     <string name="version">Versión %1$s</string>
 
     <string name="trip_title">Canto me custa a viaxe?</string>

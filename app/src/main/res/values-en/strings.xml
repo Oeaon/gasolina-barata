@@ -43,6 +43,10 @@
     <string name="privacy_options">Ad privacy options</string>
     <string name="about_title">About</string>
     <string name="about_text">Prices of Spanish petrol stations published by the Ministry for the Ecological Transition, updated every 30 minutes. The pump price always prevails.</string>
+    <string name="source_title">Data source</string>
+    <string name="source_geoportal">Petrol Station Geoportal (Spanish Ministry)</string>
+    <string name="source_service">Official fuel price service (minetur.gob.es)</string>
+    <string name="about_disclaimer">Gasolina Barata is an independent app and is not affiliated with the Ministry or any government body.</string>
     <string name="version">Version %1$s</string>
     <string name="trip_title">How much will the trip cost?</string>
     <string name="trip_locked">Work out the fuel and the cost of a trip filling up at the cheapest station.</string>

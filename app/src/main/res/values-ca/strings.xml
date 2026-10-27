@@ -43,6 +43,10 @@
     <string name="privacy_options">Opcions de privadesa dels anuncis</string>
     <string name="about_title">Quant a</string>
     <string name="about_text">Preus de les benzineres d\'Espanya publicats pel Ministeri per a la Transició Ecològica i el Repte Demogràfic, que s\'actualitzen cada 30 minuts. El preu final sempre és el del sortidor.</string>
+    <string name="source_title">Font de les dades</string>
+    <string name="source_geoportal">Geoportal de Benzineres (Ministeri)</string>
+    <string name="source_service">Servei oficial de preus de carburants (minetur.gob.es)</string>
+    <string name="about_disclaimer">Gasolina Barata és una app independent i no està vinculada al Ministeri ni a cap organisme públic.</string>
     <string name="version">Versió %1$s</string>
 
     <string name="trip_title">Quant em costa el viatge?</string>

@@ -22,4 +22,8 @@ Premium removes all ads and keeps the trip calculator always unlocked. Choose a 
 DATA
 Official prices including taxes, from the public service of the Spanish Ministry for the Ecological Transition. The pump price always prevails.
 
-Gasolina Barata is an independent app and is not affiliated with the Ministry or with any fuel brand.
+Official data source:
+• Ministry Petrol Station Geoportal: https://geoportalgasolineras.es/geoportal-instalaciones/Inicio
+• Fuel price service: https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/help
+
+Gasolina Barata is an independent app and is not affiliated with the Ministry, any government body or any fuel brand.
